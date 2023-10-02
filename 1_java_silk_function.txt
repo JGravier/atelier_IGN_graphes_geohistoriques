@@ -3,4 +3,4 @@ export JAVA_HOME='/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home'
 ./silk-workbench
 
 Navigateur :
-127.0.0.1:9000
+localhost:9000
