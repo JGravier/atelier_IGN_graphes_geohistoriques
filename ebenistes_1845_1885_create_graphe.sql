@@ -55,7 +55,7 @@ INSERT INTO directories_graph.geocoding
 		act.ner_xml ILIKE '%ébeniste%' OR 
 		act.ner_xml ILIKE '%ebéniste%' OR
 		act.ner_xml ILIKE '%cbeniste%' OR
-		act.ner_xml ILIKE '%cbéniste%')
+		act.ner_xml ILIKE '%cbéniste%')))
 	ORDER BY e.index);
 	
 UPDATE directories_graph.directories_content SET graph_name ='ebenistes_1845_1885' WHERE graph_name ISNULL;
