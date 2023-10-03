@@ -6,7 +6,7 @@ WITH per_count AS (
 			SELECT pc.index
 			FROM per_count AS pc
 			WHERE count_ <=1)
-	SELECT DISTINCT e.index, p.ner_xml AS person, TRANSLATE(act.ner_xml,'éëèêàç','eeeeac') AS activity, s.loc AS loc, s.cardinal AS cardinal,
+	SELECT DISTINCT e.index, p.ner_xml AS person, TRANSLATE(act.ner_xml,'éëèêàç','eeeeac') AS activity, soundex(act.ner_xml) AS actsoundex, s.loc AS loc, s.cardinal AS cardinal,
 	t.ner_xml AS title, e.directory, e.published, lower((COALESCE(s.loc,'') || ' '::text) || COALESCE(s.cardinal,'')) AS fulladd
 	FROM short_list AS l
 	INNER JOIN directories.elements AS e ON l.index = e.index
