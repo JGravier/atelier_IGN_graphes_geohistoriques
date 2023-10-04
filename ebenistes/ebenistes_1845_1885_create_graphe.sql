@@ -9,8 +9,9 @@ INSERT INTO directories_graph.directories_content
 			SELECT pc.index
 			FROM per_count AS pc
 			WHERE count_ <=1)
-	SELECT DISTINCT e.index, p.ner_xml AS person, act.ner_xml AS activity, s.loc AS loc, s.cardinal AS cardinal,
-	t.ner_xml AS title, e.directory, e.published, lower((COALESCE(s.loc,'') || ' '::text) || COALESCE(s.cardinal,'')) AS fulladd
+	SELECT DISTINCT e.index, TRANSLATE(p.ner_xml,'éëèêàç,.:;\-_\(\)\[\]?!$&""','eeeeac') AS person, TRANSLATE(act.ner_xml,'éëèêàç,.:;\-_\(\)\[\]?!$&""','eeeeac') AS activity, s.loc AS loc, s.cardinal AS cardinal,
+	-- change TRANSLATE in unaccent()
+	t.ner_xml AS title, e.directory, e.published, TRANSLATE(lower((COALESCE(s.loc,'') || ' '::text) || COALESCE(s.cardinal,'')),'éëèêàç,.:;\-_\(\)\[\]?!$&""','eeeeac') AS fulladd
 	FROM short_list AS l
 	INNER JOIN directories.elements AS e ON l.index = e.index
 	INNER JOIN directories.persons AS p ON e.index = p.entry_id
@@ -20,12 +21,16 @@ INSERT INTO directories_graph.directories_content
 	WHERE (
 		(e.published>1844 AND e.published<1886) AND
 		-- Liste des mots-clés: à adapter!
-		(act.ner_xml ILIKE '%ébéniste%' OR 
+		(e.view BETWEEN w.npage_pdf_d AND w.npage_pdf_f) AND
+        (w.liste_type ILIKE '%ListNoms%') AND
+		(act.ner_xml ILIKE '%ébeniste%' OR 
 		act.ner_xml ILIKE '%ebeniste%' OR 
-		act.ner_xml ILIKE '%ébeniste%' OR 
-		act.ner_xml ILIKE '%ebéniste%' OR
-		act.ner_xml ILIKE '%cbeniste%' OR
-		act.ner_xml ILIKE '%cbéniste%')
+		act.ner_xml ILIKE '%ébéniste%' OR 
+		act.ner_xml ILIKE '%ebéniste%' OR 
+		act.ner_xml ILIKE '%cbéniste%' OR 
+		act.ner_xml ILIKE '%bemste%' OR 
+		act.ner_xml ILIKE '%bémste%' OR 
+		 act.ner_xml ILIKE '%cbeniste%')
 		)
 	ORDER BY e.index, e.published ASC);
 	
@@ -46,16 +51,19 @@ INSERT INTO directories_graph.geocoding
 	INNER JOIN directories.activities AS act ON e.index = act.entry_id
 	INNER JOIN directories.geocoding AS g ON e.index = g.entry_id
 	WHERE (
-		(g."precise.geo_response" not like '')
-		AND(
 		(e.published>1844 AND e.published<1886) AND
 		-- Liste des mots-clés: à adapter!
-		(act.ner_xml ILIKE '%ébéniste%' OR 
+		(e.view BETWEEN w.npage_pdf_d AND w.npage_pdf_f) AND
+        (w.liste_type ILIKE '%ListNoms%') AND
+		(act.ner_xml ILIKE '%ébeniste%' OR 
 		act.ner_xml ILIKE '%ebeniste%' OR 
-		act.ner_xml ILIKE '%ébeniste%' OR 
-		act.ner_xml ILIKE '%ebéniste%' OR
-		act.ner_xml ILIKE '%cbeniste%' OR
-		act.ner_xml ILIKE '%cbéniste%')))
+		act.ner_xml ILIKE '%ébéniste%' OR 
+		act.ner_xml ILIKE '%ebéniste%' OR 
+		act.ner_xml ILIKE '%cbéniste%' OR 
+		act.ner_xml ILIKE '%bemste%' OR 
+		act.ner_xml ILIKE '%bémste%' OR 
+		 act.ner_xml ILIKE '%cbeniste%')
+		)
 	ORDER BY e.index);
 	
 UPDATE directories_graph.directories_content SET graph_name ='ebenistes_1845_1885' WHERE graph_name ISNULL;
