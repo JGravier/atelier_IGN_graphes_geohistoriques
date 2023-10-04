@@ -11,7 +11,7 @@ INSERT INTO directories_graph.directories_content
 			WHERE count_ <=1)
 	SELECT DISTINCT e.index, TRANSLATE(p.ner_xml,'éëèêàçôö,.:;\-_\(\)\[\]?!$&','eeeeacoo') AS person, TRANSLATE(act.ner_xml,'éëèêàçôö,.:;\-_\(\)\[\]?!$&','eeeeacoo') AS activity, s.loc AS loc, s.cardinal AS cardinal,
 	-- change TRANSLATE in unaccent()
-	t.ner_xml AS title, e.directory, e.published, TRANSLATE(lower((COALESCE(s.loc,'') || ' '::text) || COALESCE(s.cardinal,'')),'éëèêàçôö,.:;\-_\(\)\[\]?!$&','eeeeacoo') AS fulladd
+	t.ner_xml AS title, e.directory, e.published, TRANSLATE(lower((COALESCE(s.loc,'') || ' '::text) || COALESCE(s.cardinal,'')),'éëèêàçôö,.:;\-_\(\)\[\]?!$&','eeeeacoo') AS fulladd, s.index AS id_address
 	FROM short_list AS l
 	INNER JOIN directories.elements AS e ON l.index = e.index
 	INNER JOIN directories.persons AS p ON e.index = p.entry_id
