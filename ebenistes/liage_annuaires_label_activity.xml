@@ -58,8 +58,8 @@ Conserve tous les cas où le score minimal de la combinaison de propriété Labe
 <!--
 Pour deux entrées : calcule la distance character levenshtein entre les valeurs de la propriété Activité
 -->
-	<Compare id="levenshtein_activity" required="true" weight="1" metric="levenshtein" threshold="0.95">
-<!--Distance maximale = 0.95-->
+	<Compare id="levenshtein_activity" required="true" weight="1" metric="levenshtein" threshold="0.8">
+<!--Distance maximale = 0.8-->
 <!--
 Transformation des valeurs : suppression des caractères spéciaux, des blancs en début et fin et passage en minuscules)
 -->
@@ -77,8 +77,8 @@ Transformation des valeurs : suppression des caractères spéciaux, des blancs e
 	<!--
 	Pour deux entrées : calcule la distance d'édition levenshtein entre les valeurs de la propriété Label
 	-->
-	<Compare id="levenshtein_persons" required="true" weight="1" metric="levenshtein" threshold="0.6">
-	<!--Distance maximale = 0.6-->
+	<Compare id="levenshtein_persons" required="true" weight="1" metric="levenshtein" threshold="0.4">
+	<!--Distance maximale = 0.4-->
 		<!--
 		Transformation des valeurs : suppression des caractères spéciaux, des blancs en début et fin et passage en minuscules)
 		-->
@@ -92,29 +92,11 @@ Transformation des valeurs : suppression des caractères spéciaux, des blancs e
 				<Input id="target_label_2" path="?b/rdfs:label"/>
 			</TransformInput>
 	</Compare>
-	<!--
-	Pour deux entrées : calcule la distance d'édition jaccard (tokenbased) entre les valeurs de la propriété full adress (cardinalite and street name)
-	-->
-	<Compare id="jaccard1" required="true" weight="1" metric="jaccard" threshold="0.1">
-	<!--Distance maximale = 0.1-->
-		<!--
-		Transformation des valeurs : suppression des caractères spéciaux, des blancs en début et fin et passage en minuscules)
-		-->
-		<TransformInput id="transfo_label_source_3_lower" function="lowerCase">
-				<Input id="source_fulladd_3" path="?a/locn:fullAddress"/>
-			</TransformInput>
-		<!--
-		Transformation des valeurs : suppression des caractères spéciaux)
-		-->
-		<TransformInput id="transfo_label_target_3_lower" function="lowerCase">
-				<Input id="target_fulladd_4" path="?b/locn:fullAddress"/>
-			</TransformInput>
-	</Compare>
 </Aggregate>
 </LinkageRule>
 <Filter limit="80"/>
 <Outputs>
-	<Output type="file" minConfidence="0.41">
+	<Output type="file" minConfidence="0.80">
 	 <!-- TEST > need to change after at 0.41
 	<!-
 	Fichier RDF où sont sauvegardés les liens sameAS "sûrs" pour lesquels la confiance est supérieure ou égale à 0.41
@@ -123,12 +105,19 @@ Transformation des valeurs : suppression des caractères spéciaux, des blancs e
 		<Param name="format" value="ntriples"/>
 	</Output>
 
-
-		<Output type="file" minConfidence="0.12" maxConfidence="0.40">
+		<Output type="file" minConfidence="0.31" maxConfidence="0.79">
 		<!--
 		Fichier RDF où sont sauvegardés les liens sameAS "à vérifier" pour lesquels la confiance est comprise entre 0.12 et 0.40
 		-->
 		<Param name="file" value="/Users/admin/Documents/syncperso/Sync/post_doc_soduco/reunions/2023_10_semaine_ign/graphes/atelier_IGN_graphes_geohistoriques/ebenistes/labelactivity_verify_links.nt"/>
+		<Param name="format" value="ntriples"/>
+		</Output>
+
+		<Output type="file" maxConfidence="0.79">
+		<!--
+		Fichier RDF où sont sauvegardés les liens sameAS "mediocres" pour lesquels la confiance est comprise sous 0.11
+		-->
+		<Param name="file" value="/Users/admin/Documents/syncperso/Sync/post_doc_soduco/reunions/2023_10_semaine_ign/graphes/atelier_IGN_graphes_geohistoriques/ebenistes/labelactivity_maybe_links.nt"/>
 		<Param name="format" value="ntriples"/>
 		</Output>
 </Outputs>
