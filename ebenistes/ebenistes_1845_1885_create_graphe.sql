@@ -18,6 +18,7 @@ INSERT INTO directories_graph.directories_content
 	INNER JOIN directories.activities AS act ON e.index = act.entry_id
 	INNER JOIN directories.addresses AS s ON e.index = s.entry_id
 	INNER JOIN directories.titles AS t ON e.index = t.entry_id
+	INNER JOIN directories.sources AS w ON e.directory = w.code_fichier
 	WHERE (
 		(e.published>1844 AND e.published<1886) AND
 		-- Liste des mots-clés: à adapter!
@@ -30,7 +31,7 @@ INSERT INTO directories_graph.directories_content
 		act.ner_xml ILIKE '%cbéniste%' OR 
 		act.ner_xml ILIKE '%bemste%' OR 
 		act.ner_xml ILIKE '%bémste%' OR 
-		 act.ner_xml ILIKE '%cbeniste%')
+		act.ner_xml ILIKE '%cbeniste%')
 		)
 	ORDER BY e.index, e.published ASC);
 	
@@ -62,7 +63,7 @@ INSERT INTO directories_graph.geocoding
 		act.ner_xml ILIKE '%cbéniste%' OR 
 		act.ner_xml ILIKE '%bemste%' OR 
 		act.ner_xml ILIKE '%bémste%' OR 
-		 act.ner_xml ILIKE '%cbeniste%')
+		act.ner_xml ILIKE '%cbeniste%')
 		)
 	ORDER BY e.index);
 	
