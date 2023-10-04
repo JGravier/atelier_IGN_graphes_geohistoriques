@@ -51,6 +51,7 @@ INSERT INTO directories_graph.geocoding
 	INNER JOIN directories.elements AS e ON l.index = e.index
 	INNER JOIN directories.activities AS act ON e.index = act.entry_id
 	INNER JOIN directories.geocoding AS g ON e.index = g.entry_id
+	INNER JOIN directories.sources AS w ON e.directory = w.code_fichier
 	WHERE (
 		(e.published>1844 AND e.published<1886) AND
 		-- Liste des mots-clés: à adapter!
