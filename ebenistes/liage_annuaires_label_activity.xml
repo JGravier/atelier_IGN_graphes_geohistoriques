@@ -16,8 +16,8 @@
 		  <Param name="pageSize" value="1000"></Param>
 		  <Param name="pauseTime" value="0"></Param>
 		  <Param name="retryCount" value="3"></Param>
-		  <Param name="endpointURI" value="http://MacBook-Pro-di-admin.local:7200/repositories/ebenistesd2"></Param><!--Mettre l'adresse du répertoire GraphDB où se trouvent les données des annuaires-->
-		  <Param name="graph" value="http://rdf.geohistoricaldata.org/id/directories/ebenistes_1845_1885"></Param><!--Mettre l'URI du graphe nommé où se trouvent les données sur lesquelles on travaille-->
+		  <Param name="endpointURI" value="http://MacBook-Pro-di-admin.local:7200/repositories/ebenistesnomsonline"></Param><!--Mettre l'adresse du répertoire GraphDB où se trouvent les données des annuaires-->
+		  <Param name="graph" value="http://rdf.geohistoricaldata.org/id/directories/ebenistes_noms_184585"></Param><!--Mettre l'URI du graphe nommé où se trouvent les données sur lesquelles on travaille-->
 		  <Param name="retryPause" value="1000"></Param>
 		  <Param name="queryParameters" value=""/>
 		  <Param name="login" value=""/>
@@ -29,8 +29,8 @@
 		  <Param name="pageSize" value="1000"></Param>
 		  <Param name="pauseTime" value="0"></Param>
 		  <Param name="retryCount" value="3"></Param>
-		  <Param name="endpointURI" value="http://MacBook-Pro-di-admin.local:7200/repositories/ebenistesd2"></Param><!--Mettre l'adresse du répertoire GraphDB où se trouvent les données des annuaires-->
-		  <Param name="graph" value="http://rdf.geohistoricaldata.org/id/directories/ebenistes_1845_1885"></Param><!--Mettre l'URI du graphe nommé où se trouvent les données sur lesquelles on travaille-->
+		  <Param name="endpointURI" value="http://MacBook-Pro-di-admin.local:7200/repositories/ebenistesnomsonline"></Param><!--Mettre l'adresse du répertoire GraphDB où se trouvent les données des annuaires-->
+		  <Param name="graph" value="http://rdf.geohistoricaldata.org/id/directories/ebenistes_noms_184585"></Param><!--Mettre l'URI du graphe nommé où se trouvent les données sur lesquelles on travaille-->
 		  <Param name="retryPause" value="1000"></Param>
 		  <Param name="queryParameters" value=""/>
 		  <Param name="login" value=""/>
@@ -63,106 +63,74 @@ Pour deux entrées : calcule la distance character levenshtein entre les valeurs
 <!--
 Transformation des valeurs : suppression des caractères spéciaux, des blancs en début et fin et passage en minuscules)
 -->
-		<TransformInput id="regexReplace_4" function="regexReplace">
-				<TransformInput id="regexReplace_3" function="regexReplace">
-					<TransformInput id="regexReplace_2" function="regexReplace">
-						<TransformInput id="regexReplace_1" function="regexReplace">
-							<TransformInput id="transfo_activity_source_1_lower" function="lowerCase">
-								<Input id="source_activity_1" path="?a/rda:P50104"/>
-								</TransformInput>
-									<Param name="regex" value="[\[,.\-_\(\)\]?!':;$]"/>
-									<Param name="replace" value=""/>
-							</TransformInput>
-							<Param name="regex" value="[éêëè]"/>
-							<Param name="replace" value="e"/>
-						</TransformInput>
-				<Param name="regex" value="[àäâ]"/>
-				<Param name="replace" value="a"/>
-				</TransformInput>
-			<Param name="regex" value="[ç]"/>
-			<Param name="replace" value="c"/>
-		</TransformInput>
+		<TransformInput id="transfo_activity_source_1_lower" function="lowerCase">
+				<Input id="source_activity_1" path="?a/rda:P50104"/>
+			</TransformInput>
 		<!--
 		Transformation des valeurs : suppression des caractères spéciaux, des blancs en début et fin et passage en minuscules)
 		-->
-		<TransformInput id="regexReplace_8" function="regexReplace">
-			<TransformInput id="regexReplace_7" function="regexReplace">
-					<TransformInput id="regexReplace_5" function="regexReplace">
-						<TransformInput id="regexReplace_6" function="regexReplace">
-							<TransformInput id="transfo_activity_target_2_lower" function="lowerCase">
-								<Input id="target_activity_1" path="?b/rda:P50104"/>
-								</TransformInput>
-									<Param name="regex" value="[\[,.\-_\(\)\]?!':;$]"/>
-									<Param name="replace" value=""/>
-							</TransformInput>
-							<Param name="regex" value="[éêëè]"/>
-							<Param name="replace" value="e"/>
-						</TransformInput>
-				<Param name="regex" value="[àäâ]"/>
-				<Param name="replace" value="a"/>
+		<TransformInput id="transfo_activity_target_2_lower" function="lowerCase">
+				<Input id="target_activity_1" path="?b/rda:P50104"/>
 			</TransformInput>
-			<Param name="regex" value="[ç]"/>
-			<Param name="replace" value="c"/>
-		</TransformInput>
+
 	</Compare>
 	<!--
-	Pour deux entrées : calcule la distance d'édition Tokenwise entre les valeurs de la propriété Label
+	Pour deux entrées : calcule la distance d'édition levenshtein entre les valeurs de la propriété Label
 	-->
 	<Compare id="levenshtein_persons" required="true" weight="1" metric="levenshtein" threshold="0.6">
 	<!--Distance maximale = 0.6-->
 		<!--
 		Transformation des valeurs : suppression des caractères spéciaux, des blancs en début et fin et passage en minuscules)
 		-->
-		<TransformInput id="regexReplace_15" function="regexReplace">
-			<TransformInput id="regexReplace_14" function="regexReplace">
-					<TransformInput id="regexReplace_12" function="regexReplace">
-						<TransformInput id="regexReplace_13" function="regexReplace">
-							<TransformInput id="transfo_label_source_2_lower" function="lowerCase">
-								<Input id="source_label_2" path="?a/rdfs:label"/>
-								</TransformInput>
-									<Param name="regex" value="[\[,.\-_\(\)\]?!':;$]"/>
-									<Param name="replace" value=""/>
-							</TransformInput>
-							<Param name="regex" value="[éêëè]"/>
-							<Param name="replace" value="e"/>
-						</TransformInput>
-				<Param name="regex" value="[àäâ]"/>
-				<Param name="replace" value="a"/>
+		<TransformInput id="transfo_label_source_2_lower" function="lowerCase">
+				<Input id="source_label_2" path="?a/rdfs:label"/>
 			</TransformInput>
-			<Param name="regex" value="[ç]"/>
-			<Param name="replace" value="c"/>
-		</TransformInput>
 		<!--
 		Transformation des valeurs : suppression des caractères spéciaux)
 		-->
-		<TransformInput id="regexReplace_19" function="regexReplace">
-			<TransformInput id="regexReplace_18" function="regexReplace">
-					<TransformInput id="regexReplace_17" function="regexReplace">
-						<TransformInput id="regexReplace_16" function="regexReplace">
-							<TransformInput id="transfo_label_target_2_lower" function="lowerCase">
-								<Input id="target_label_2" path="?b/rdfs:label"/>
-								</TransformInput>
-									<Param name="regex" value="[\[,.\-_\(\)\]?!':;$]"/>
-									<Param name="replace" value=""/>
-							</TransformInput>
-							<Param name="regex" value="[éêëè]"/>
-							<Param name="replace" value="e"/>
-					</TransformInput>
-				<Param name="regex" value="[àäâ]"/>
-				<Param name="replace" value="a"/>
+		<TransformInput id="transfo_label_target_2_lower" function="lowerCase">
+				<Input id="target_label_2" path="?b/rdfs:label"/>
 			</TransformInput>
-			<Param name="regex" value="[ç]"/>
-			<Param name="replace" value="c"/>
-		</TransformInput>
+	</Compare>
+	<!--
+	Pour deux entrées : calcule la distance d'édition jaccard (tokenbased) entre les valeurs de la propriété full adress (cardinalite and street name)
+	-->
+	<Compare id="jaccard1" required="true" weight="1" metric="jaccard" threshold="0.1">
+	<!--Distance maximale = 0.1-->
+		<!--
+		Transformation des valeurs : suppression des caractères spéciaux, des blancs en début et fin et passage en minuscules)
+		-->
+		<TransformInput id="transfo_label_source_3_lower" function="lowerCase">
+				<Input id="source_fulladd_3" path="?a/locn:fullAddress"/>
+			</TransformInput>
+		<!--
+		Transformation des valeurs : suppression des caractères spéciaux)
+		-->
+		<TransformInput id="transfo_label_target_3_lower" function="lowerCase">
+				<Input id="target_fulladd_4" path="?b/locn:fullAddress"/>
+			</TransformInput>
 	</Compare>
 </Aggregate>
 </LinkageRule>
-<Filter limit="50"/>
+<Filter limit="80"/>
 <Outputs>
-	<Output type="file" minConfidence="0.95">
-		<Param name="file" value="labelactivity_accepted_links.nt"/>
+	<Output type="file" minConfidence="0.41">
+	 <!-- TEST > need to change after at 0.41
+	<!-
+	Fichier RDF où sont sauvegardés les liens sameAS "sûrs" pour lesquels la confiance est supérieure ou égale à 0.41
+	-->
+		<Param name="file" value="/Users/admin/Documents/syncperso/Sync/post_doc_soduco/reunions/2023_10_semaine_ign/graphes/atelier_IGN_graphes_geohistoriques/ebenistes/labelactivity_accepted_links.nt"/>
 		<Param name="format" value="ntriples"/>
 	</Output>
+
+
+		<Output type="file" minConfidence="0.12" maxConfidence="0.40">
+		<!--
+		Fichier RDF où sont sauvegardés les liens sameAS "à vérifier" pour lesquels la confiance est comprise entre 0.12 et 0.40
+		-->
+		<Param name="file" value="/Users/admin/Documents/syncperso/Sync/post_doc_soduco/reunions/2023_10_semaine_ign/graphes/atelier_IGN_graphes_geohistoriques/ebenistes/labelactivity_verify_links.nt"/>
+		<Param name="format" value="ntriples"/>
+		</Output>
 </Outputs>
 </Interlink>
 </Interlinks>
