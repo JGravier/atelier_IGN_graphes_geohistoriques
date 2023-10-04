@@ -157,24 +157,12 @@ Transformation des valeurs : suppression des caractères spéciaux, des blancs e
 	</Compare>
 </Aggregate>
 </LinkageRule>
-<Filter limit="150"/>
+<Filter limit="50"/>
 <Outputs>
-	<Output type="file" minConfidence="0.41">
-	<!--
-	Fichier RDF où sont sauvegardés les liens sameAS "sûrs" pour lesquels la confiance est supérieure ou égale à 0.41
-	-->
+	<Output type="file" minConfidence="0.95">
 		<Param name="file" value="labelactivity_accepted_links.nt"/>
 		<Param name="format" value="ntriples"/>
 	</Output>
-
-
-		<Output type="file" minConfidence="0.12" maxConfidence="0.40">
-		<!--
-		Fichier RDF où sont sauvegardés les liens sameAS "à vérifier" pour lesquels la confiance est comprise entre 0.12 et 0.40
-		-->
-		<Param name="file" value="labelactivity_verify_links.nt"/>
-		<Param name="format" value="ntriples"/>
-		</Output>
 </Outputs>
 </Interlink>
 </Interlinks>
