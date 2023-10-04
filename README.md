@@ -16,3 +16,12 @@ cd /Espacedisque/silk/silk-single-machine/
 export JAVA_HOME='/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home'
 java -DconfigFile=monFichierDeConfig.xml -jar silk.jar
 ```
+
+### GraphDB
+#### Construction (for local)
+``` sparql
+construct { ?s ?p ?o} 
+where {graph <http://rdf.geohistoricaldata.org/id/directories/monGraphPostgreSQL> 
+    {?s ?p ?o}
+}
+```
