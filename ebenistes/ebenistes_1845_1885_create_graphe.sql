@@ -1,4 +1,4 @@
-INSERT INTO directories_graph.directories_content 
+INSERT INTO directories_graph.directories_content (index, person, activity,loc, cardinal,title,directory,published, fulladd, id_address)
 (
 	--Pour chaque entrée, compte le nombre de '<PER>' dans la chaîne XML retournée par la pipeline NER
 	WITH per_count AS (
@@ -68,6 +68,6 @@ INSERT INTO directories_graph.geocoding
 		)
 	ORDER BY e.index);
 	
-UPDATE directories_graph.directories_content SET graph_name ='ebenistes_noms_1845_1885' WHERE graph_name ISNULL;
-UPDATE directories_graph.geocoding SET graph_name ='ebenistes_noms_1845_1885' WHERE graph_name ISNULL;
-INSERT INTO directories_graph.dataset VALUES ('Ebenistes listNoms between 1845 and 1885', '2023-10-04', 'ebenistes_noms_1845_1885');
+UPDATE directories_graph.directories_content SET graph_name ='ebenistes_noms_184585' WHERE graph_name ISNULL;
+UPDATE directories_graph.geocoding SET graph_name ='ebenistes_noms_184585' WHERE graph_name ISNULL;
+INSERT INTO directories_graph.dataset VALUES ('Ebenistes listNoms between 1845 and 1885', '2023-10-04', 'ebenistes_noms_184585');
