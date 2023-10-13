@@ -25,3 +25,13 @@ where {graph <http://rdf.geohistoricaldata.org/id/directories/monGraphPostgreSQL
     {?s ?p ?o}
 }
 ```
+
+#### Example of filtering: extacting IDs
+``` sparql
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+select * from <http://rdf.geohistoricaldata.org/id/directories/nourrisseurs/> where {
+    ?s ?p ?o
+    filter(?p = <http://rdf.geohistoricaldata.org/def/directory#numEntry>)
+}
+order by ?o
+```
