@@ -17,6 +17,10 @@ export JAVA_HOME='/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home'
 java -DconfigFile=monFichierDeConfig.xml -jar silk.jar
 ```
 
+#### documentation
+* [documentation](https://github.com/silk-framework/silk/tree/master/doc)
+* [reprise de documentation](https://phobyjun.github.io/2019/07/07/Silk-book.html)
+
 ### GraphDB
 #### Construction (for local)
 ``` sparql

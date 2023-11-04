@@ -29,7 +29,7 @@ WITH per_count AS (
 		act.ner_xml ILIKE '%cbéniste%' OR 
 		act.ner_xml ILIKE '%bemste%' OR 
 		act.ner_xml ILIKE '%bémste%' OR 
-		 act.ner_xml ILIKE '%cbeniste%')
-		 )
+		act.ner_xml ILIKE '%cbeniste%')
+		)
 		)
 	ORDER BY e.index, e.published ASC;
